@@ -193,14 +193,20 @@ namespace AppodealAds.Unity.iOS
         [DllImport("__Internal")]
         internal static extern void AppodealLogEvent(string eventName, string eventParams);
 
+        [StructLayout(LayoutKind.Sequential)]
+        public struct InAppPurchaseData
+        {
+            public string productIdentifier;
+            public string price;
+            public string currency;
+            public string transactionId;
+            public string additionalParams;
+            public int type;
+        }
+
         [DllImport("__Internal")]
         internal static extern void AppodealValidateInAppPurchase(
-            string productIdentifier,
-            string price,
-            string currency,
-            string transactionId,
-            string additionalParams,
-            int type,
+            InAppPurchaseData inAppPurchaseData,
             InAppPurchaseValidationSucceededCallback success,
             InAppPurchaseValidationFailedCallback failure);
 
