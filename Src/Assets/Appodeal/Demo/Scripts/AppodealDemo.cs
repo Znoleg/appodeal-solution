@@ -30,6 +30,10 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
         [SerializeField] public Button btnShowRewardedVideo;
         [SerializeField] public GameObject consentManagerPanel;
         [SerializeField] public GameObject appodealPanel;
+        [SerializeField] public Text pluginVersionText;
+        [SerializeField] public Text sdkVersionText;
+        // ReSharper disable once UnusedMember.Global
+        [SerializeField] public Text buildDateText;
 
         #endregion
 
@@ -61,6 +65,12 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
 
             consentManager = ConsentManager.getInstance();
             consentManager.setStorage(ConsentManager.Storage.SHARED_PREFERENCE);
+
+            pluginVersionText.text = $"Plugin version: {Appodeal.getPluginVersion()}";
+            sdkVersionText.text = $"SDK version: {Appodeal.getNativeSDKVersion()}";
+#if UNITY_ANDROID && !UNITY_EDITOR
+            buildDateText.text = $"Build date: {Appodeal.getBuildDate()}";
+#endif
         }
 
         private void OnDestroy()
