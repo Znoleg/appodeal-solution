@@ -320,6 +320,13 @@ namespace AppodealAds.Unity.Android
             return getAppodealClass().CallStatic<long>("getSegmentId");
         }
 
+        public DateTime getBuildDate()
+        {
+            var dateObject = getAppodealClass().CallStatic<AndroidJavaObject>("getBuildDate");
+            var unixTime = dateObject.Call<long>("getTime");
+            return DateTimeOffset.FromUnixTimeMilliseconds(unixTime).UtcDateTime;
+        }
+
         public bool canShow(int adTypes)
         {
             return getAppodealClass().CallStatic<bool>("canShow", nativeAdTypesForType(adTypes));
